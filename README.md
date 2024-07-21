@@ -55,27 +55,26 @@ This repository contains a 3D brain tumor segmentation model using a Residual U-
 
 The model architecture is defined in `model.py` and consists of a Residual U-Net with attention mechanisms.
 
-```python
-class ResUNetAttention(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super(ResUNetAttention, self).__init__()
-        # Model layers...
 
-Loss Functions and Metrics
+## Loss Functions and Metrics
 The loss functions and metrics are defined in losses_and_metrics.py.
 
-Focal Loss: Designed to address class imbalance.
-Dice Coefficient: Measures overlap between predicted and true segmentation.
-IoU (Intersection over Union): Measures the accuracy of the segmentation.
+   - Focal Loss: Designed to address class imbalance.
+   - Dice Coefficient: Measures overlap between predicted and true segmentation.
+   - IoU (Intersection over Union): Measures the accuracy of the segmentation.
 
-Training
+## Training
 The training process is handled in train.py. It includes data loading, model training, validation, and saving metrics and the trained model.
 
-Contributing
+## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request or open an issue if you have any suggestions or improvements.
 
-Fork the repository
-Create a new branch (git checkout -b feature-branch)
-Commit your changes (git commit -am 'Add new feature')
-Push to the branch (git push origin feature-branch)
-Open a Pull Request
+- Fork the repository
+
+- Create a new branch (git checkout -b feature-branch)
+
+- Commit your changes (git commit -am 'Add new feature')
+
+- Push to the branch (git push origin feature-branch)
+
+- Open a Pull Request
