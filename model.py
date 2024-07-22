@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class DoubleConv(nn.Module):
-    """Double Convolution Block with Batch Normalization and ReLU."""
+    """Double Convolution Block with Batch Normalization, ReLU, and Residual Connection."""
 
     def __init__(self, in_channels, out_channels):
         super(DoubleConv, self).__init__()
@@ -15,9 +15,12 @@ class DoubleConv(nn.Module):
             nn.BatchNorm3d(out_channels),
             nn.ReLU(inplace=True)
         )
+        self.residual = nn.Conv3d(in_channels, out_channels, kernel_size=1)
 
     def forward(self, x):
-        return self.double_conv(x)
+        residual = self.residual(x)
+        out = self.double_conv(x)
+        return out + residual
 
 
 class AttentionBlock(nn.Module):
@@ -60,7 +63,7 @@ class ResUNetAttention(nn.Module):
         self.down2 = nn.Sequential(nn.MaxPool3d(2), DoubleConv(128, 256))
         self.down3 = nn.Sequential(nn.MaxPool3d(2), DoubleConv(256, 512))
 
-        self.bottleneck = DoubleConv(512, 512)  # Reduced from 1024 to 512
+        self.bottleneck = DoubleConv(512, 512)
 
         self.up3 = nn.ConvTranspose3d(512, 256, kernel_size=2, stride=2)
         self.att3 = AttentionBlock(256, 256, 128)
